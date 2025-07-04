@@ -11,8 +11,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/success', function () {
-    return 'Payment successful!';
-})->name('stripe.success');
+    return view('success');
+})->name('success');
 
 Route::get('/cancel', function () {
     return 'Payment canceled!';
