@@ -6,7 +6,7 @@
 <div class="d-flex justify-content-center align-items-center" style="min-height: 80vh;">
     <div class="card shadow-lg p-4" style="width: 100%; max-width: 400px;">
         <div class="text-center mb-4">
-            <img src="https://via.placeholder.com/80x80?text=Logo" alt="Logo" class="mb-3 mx-auto d-block">
+            <img src="{{ asset('logo-v.png') }}" alt="Logo" width="250" height="auto" class="mb-3 mx-auto d-block">
             <h3 class="fw-bold">Welcome Back</h3>
             <p class="text-muted">Please login to your account</p>
         </div>
@@ -66,7 +66,7 @@
 
         <div class="mt-3 text-center">
             @if (Route::has('password.request'))
-                <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot your password?</a>
+                <!-- <a href="{{ route('password.request') }}" class="text-decoration-none">Forgot your password?</a> -->
             @endif
         </div>
     </div>
