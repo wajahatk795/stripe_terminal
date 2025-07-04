@@ -45,7 +45,7 @@ class StripePaymentController extends Controller
             'service_desc' => $request->service_desc,
             'amount_cents' => $amount,
             'checkout_url' => $session->url,
-            'checkout_session_id' => $session->id,
+            'checkout_session_id' => $session->id, // ✅ critical
             'status' => 'pending',
         ]);
 
@@ -61,6 +61,7 @@ class StripePaymentController extends Controller
     public function success(Request $request)
     {
         $sessionId = $request->get('session_id');
+
         if (!$sessionId) {
             return redirect('/')->with('error', 'Missing session id.');
         }
@@ -68,15 +69,16 @@ class StripePaymentController extends Controller
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $session = \Stripe\Checkout\Session::retrieve($sessionId);
 
-        if ($session->payment_status == 'paid') {
-            $payment = PaymentRequest::where('checkout_session_id', $sessionId)->first();
-            if ($payment) {
-                $payment->status = 'paid';
-                $payment->transaction_id = $session->payment_intent;
-                $payment->save();
-            }
+        $payment = PaymentRequest::where('checkout_session_id', $sessionId)->first();
+
+        if ($session->payment_status == 'paid' && $payment) {
+            $payment->status = 'paid';
+            $payment->transaction_id = $session->payment_intent;
+            $payment->save();
         }
 
         return view('success');
     }
+
+
 }
