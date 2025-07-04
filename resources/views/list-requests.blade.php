@@ -5,8 +5,8 @@
 @section('content')
 <div class="container pt-3">
     <div class="btn-bx">
-         <a href="{{ route('create-payment') }}">Create Payment</a>
-        <a href="{{ route('payment-requests') }}">View Requests</a>
+         <a href="{{ route('create-payment') }}" class="btn btn-secondary mb-3">Create Payment</a>
+        <a href="{{ route('payment-requests') }}" class="btn btn-secondary mb-3">View Requests</a>
 
         <!-- <a href="/dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a> -->
     </div>
