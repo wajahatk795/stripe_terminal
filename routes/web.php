@@ -6,6 +6,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/create-payment', [StripePaymentController::class, 'showForm']);
     Route::post('/create-payment-link', [StripePaymentController::class, 'createPaymentLink']);
     Route::get('/payment-requests', [StripePaymentController::class, 'listRequests'])->name('payment-requests');
+    Route::get('/', function () {
+        return view('welcome');
+    });
 });
 
 Route::get('/success', function () {
