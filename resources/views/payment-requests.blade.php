@@ -5,9 +5,7 @@
 @section('content')
 <div class="container pt-3">
     <div class="btn-bx">
-         <a href="{{ route('create-payment') }}" class="btn btn-primary mb-3">Create Payment</a>
-        <!-- <a href="{{ route('payment-requests') }}" class="btn btn-secondary mb-3">View Requests</a> -->
-
+        <a href="/create-payment" class="btn btn-primary mb-3">Create New Payment Request</a>
         <!-- <a href="/dashboard" class="btn btn-secondary mb-3">Back to Dashboard</a> -->
     </div>
     <div class="card shadow-sm">
@@ -28,7 +26,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($payments as $req)
+                @foreach ($requests as $req)
                 <tr>
                     <td>{{ $req->id }}</td>
                     <td>{{ $req->client_name }}</td>
