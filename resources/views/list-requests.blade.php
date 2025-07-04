@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach ($requests as $req)
+                @foreach ($payments as $req)
                 <tr>
                     <td>{{ $req->id }}</td>
                     <td>{{ $req->client_name }}</td>
