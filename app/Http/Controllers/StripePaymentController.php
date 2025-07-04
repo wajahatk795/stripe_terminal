@@ -7,7 +7,7 @@ use App\Models\PaymentRequest;
 
 class StripePaymentController extends Controller
 {
-    public function create()
+    public function showForm()
     {
         return view('create-payment');
     }
