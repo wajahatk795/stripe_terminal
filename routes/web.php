@@ -24,7 +24,8 @@ Route::middleware(['auth'])->group(function () {
 Route::post('/stripe/webhook', [StripeWebhookController::class, 'handle'])->name('stripe.webhook');
 
 // Success & cancel pages
-Route::get('/success', [StripePaymentController::class, 'success'])->name('success');
+Route::get('/success', [StripePaymentController::class, 'success'])->name('stripe.success');
+
 Route::get('/cancel', function () {
     return view('cancel');
 })->name('stripe.cancel');
