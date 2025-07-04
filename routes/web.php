@@ -7,7 +7,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/create-payment-link', [StripePaymentController::class, 'createPaymentLink']);
     Route::get('/payment-requests', [StripePaymentController::class, 'listRequests'])->name('payment-requests');
     Route::get('/', function () {
-        return view('welcome');
+        return view('payment-requests');
     });
 });
 
