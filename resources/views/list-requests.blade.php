@@ -3,10 +3,11 @@
 @section('title', 'Payment Requests')
 
 @section('content')
-<div class="btn-bx">
-    <a href="{{ route('create-payment') }}" class="btn btn-primary">Create Payment Link</a>
-</div>
+
 <div class="container pt-3">
+    <div class="btn-bx">
+        <a href="{{ route('create-payment') }}" class="btn btn-primary">Create Payment Link</a>
+    </div>
     <h1 class="mb-4">Payment Requests</h1>
 
     @if(session('success'))
