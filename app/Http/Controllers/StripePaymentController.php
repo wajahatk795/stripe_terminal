@@ -12,7 +12,7 @@ class StripePaymentController extends Controller
         return view('create-payment');
     }
 
-    public function store(Request $request)
+    public function createPaymentLink(Request $request)
     {
         $request->validate([
             'client_name' => 'required|string|max:255',
