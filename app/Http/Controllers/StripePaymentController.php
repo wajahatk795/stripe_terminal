@@ -38,7 +38,7 @@ class StripePaymentController extends Controller
             'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
             'cancel_url' => route('stripe.cancel'),
         ]);
-
+        dd($session->id);
         PaymentRequest::create([
             'client_name' => $request->client_name,
             'client_email' => $request->client_email,
