@@ -3,7 +3,7 @@
 @section('title', 'Create Payment')
 
 @section('content')
-<div class="container">
+<div class="container pt-3">
     <h1 class="mb-4">Create Payment Link</h1>
 
     @if ($errors->any())
