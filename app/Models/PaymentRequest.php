@@ -13,5 +13,6 @@ class PaymentRequest extends Model
         'amount_cents',
         'checkout_url',
         'status',
+        'checkout_session_id',
     ];
 }
