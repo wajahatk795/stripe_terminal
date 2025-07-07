@@ -1,37 +1,38 @@
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@section('title', 'Payment Canceled')
 
-        <title>Payment Successful</title>
-    </head>
-    <body>
+@section('content')
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-        <!-- Optional JavaScript; choose one of the two! -->
+            <div class="card shadow-lg p-5 border-0">
+                <div class="text-danger mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
+                         class="bi bi-x-circle-fill animate__animated animate__shakeX" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM4.646 
+                                 4.646a.5.5 0 0 1 .708 0L8 
+                                 7.293l2.646-2.647a.5.5 0 0 1 
+                                 .708.708L8.707 8l2.647 
+                                 2.646a.5.5 0 0 1-.708.708L8 
+                                 8.707l-2.646 2.647a.5.5 0 0 
+                                 1-.708-.708L7.293 8 4.646 
+                                 5.354a.5.5 0 0 1 0-.708z"/>
+                    </svg>
+                </div>
 
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                <h2 class="mb-3">Payment Canceled</h2>
+                <p class="lead mb-4">
+                    Your payment was not completed. If this was a mistake, you can try again.
+                </p>
 
-    <div class="d-flex justify-content-center align-items-center" style="min-height:80vh;">
-    <div class="card p-4 text-center shadow" style="max-width: 500px;">
-        <div class="mb-4">
-            <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#dc3545" class="bi bi-x-circle" viewBox="0 0 16 16">
-                <path d="M15.854 7.146a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 14.293l7.646-7.647a.5.5 0 0 1 .708 0z"/>
-                <path d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8z"/>
-            </svg>
+                <a href="{{ route('payment-requests') }}" class="btn btn-outline-danger mt-2">
+                    Back to Dashboard
+                </a>
+            </div>
+
         </div>
-        <h2>Payment Cancelled</h2>
-        <p>You cancelled the transaction.</p>
-        <a href="{{ route('payment-requests') }}" class="btn btn-outline-secondary mt-3">Back to Payments</a>
     </div>
 </div>
-    </body>
-    </html>
-
-    </div>
-
+@endsection

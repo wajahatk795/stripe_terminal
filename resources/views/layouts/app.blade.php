@@ -13,6 +13,7 @@
         <!-- Scripts -->
         <link rel="stylesheet" href="{{ mix('css/app.css') }}">
         <link rel="icon" href="https://vortexdigitallabs.com/assets/images/favicon.png" type="image/x-icon" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <script src="{{ mix('js/app.js') }}" defer></script>
     </head>
     <style>

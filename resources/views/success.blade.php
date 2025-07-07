@@ -1,36 +1,35 @@
-    <!doctype html>
-    <html lang="en">
-    <head>
-        <!-- Required meta tags -->
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+@extends('layouts.app')
 
-        <!-- Bootstrap CSS -->
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+@section('title', 'Payment Successful')
 
-        <title>Payment Successful</title>
-    </head>
-    <body>
+@section('content')
+<div class="container py-5 text-center">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
 
-        <!-- Optional JavaScript; choose one of the two! -->
+            <div class="card shadow-lg p-5 border-0">
+                <div class="text-success mb-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor"
+                         class="bi bi-check-circle-fill animate__animated animate__bounceIn" viewBox="0 0 16 16">
+                        <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM6.97 
+                                 11.03a.75.75 0 0 0 1.07 0l3.992-3.992a.75.75 0 
+                                 0 0-1.06-1.06L7.5 
+                                 9.439 5.53 7.47a.75.75 0 0 0-1.06 
+                                 1.06l2.5 2.5z"/>
+                    </svg>
+                </div>
 
-        <!-- Option 1: Bootstrap Bundle with Popper -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+                <h2 class="mb-3">Payment Successful!</h2>
+                <p class="lead mb-4">
+                    Thank you for your payment. A confirmation has been sent to your email.
+                </p>
 
-        <div class="d-flex justify-content-center align-items-center" style="min-height:80vh;">
-        <div class="card shadow-lg p-4 text-center" style="max-width: 500px; width: 100%;">
-            <div class="mb-4">
-                <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="#28a745" class="bi bi-check-circle" viewBox="0 0 16 16">
-                <path d="M15.854 7.146a.5.5 0 0 1 0 .708l-8 8a.5.5 0 0 1-.708 0l-4-4a.5.5 0 1 1 .708-.708L7.5 14.293l7.646-7.647a.5.5 0 0 1 .708 0z"/>
-                <!-- <path d="M1 8a7 7 0 1 1 14 0A7 7 0 0 1 1 8z"/> -->
-                </svg>
+                <a href="{{ route('payment-requests') }}" class="btn btn-outline-primary mt-2">
+                    Back to Dashboard
+                </a>
             </div>
-            <h2 class="fw-bold mb-3">Payment Successful!</h2>
-            <p class="text-muted mb-4">Thank you for your payment. Your transaction has been completed successfully.</p>
-            <!-- <a href="{{ url('/') }}" class="btn btn-success btn-lg px-4">Go to Home</a> -->
+
         </div>
-    </body>
-    </html>
-
     </div>
-
+</div>
+@endsection
