@@ -15,4 +15,7 @@ Route::get('/cancel', function () {
     return view('cancel');
 })->name('stripe.cancel');
 
+Route::get('/pay/{id}', [StripePaymentController::class, 'showCustomPaymentPage'])->name('custom-pay');
+Route::post('/pay/{id}', [StripePaymentController::class, 'processCustomPayment'])->name('custom-pay.process');
+
 require __DIR__.'/auth.php';
