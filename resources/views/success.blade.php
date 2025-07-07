@@ -21,12 +21,12 @@
 
                 <h2 class="mb-3">Payment Successful!</h2>
                 <p class="lead mb-4">
-                    Thank you for your payment. A confirmation has been sent to your email.
+                    Thank you for your payment.
                 </p>
 
-                <a href="{{ route('payment-requests') }}" class="btn btn-outline-primary mt-2">
+                <!-- <a href="{{ route('payment-requests') }}" class="btn btn-outline-primary mt-2">
                     Back to Dashboard
-                </a>
+                </a> -->
             </div>
 
         </div>

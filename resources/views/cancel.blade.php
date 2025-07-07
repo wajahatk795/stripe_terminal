@@ -27,9 +27,9 @@
                     Your payment was not completed. If this was a mistake, you can try again.
                 </p>
 
-                <a href="{{ route('payment-requests') }}" class="btn btn-outline-danger mt-2">
+                <!-- <a href="{{ route('payment-requests') }}" class="btn btn-outline-danger mt-2">
                     Back to Dashboard
-                </a>
+                </a> -->
             </div>
 
         </div>
