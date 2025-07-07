@@ -12,6 +12,7 @@ class PaymentRequest extends Model
         'service_desc',
         'amount_cents',
         'checkout_url',
+        'payment_intent_id', // ✅ add this
         'status',
         'checkout_session_id',
     ];

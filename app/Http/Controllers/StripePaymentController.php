@@ -81,4 +81,34 @@ class StripePaymentController extends Controller
     }
 
 
+    public function showCustomPaymentPage($id)
+    {
+        $payment = PaymentRequest::findOrFail($id);
+
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+
+        // Create or reuse a PaymentIntent
+        if (!$payment->payment_intent_id) {
+            $intent = \Stripe\PaymentIntent::create([
+                'amount' => $payment->amount_cents,
+                'currency' => 'usd',
+                'metadata' => [
+                    'payment_request_id' => $payment->id,
+                    'client_name' => $payment->client_name
+                ],
+            ]);
+            $payment->payment_intent_id = $intent->id;
+            $payment->save();
+        } else {
+            $intent = \Stripe\PaymentIntent::retrieve($payment->payment_intent_id);
+        }
+
+        return view('custom-payment', [
+            'payment' => $payment,
+            'clientSecret' => $intent->client_secret
+        ]);
+    }
+
+
+
 }
