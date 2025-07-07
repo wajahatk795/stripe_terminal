@@ -3,11 +3,7 @@
 @section('title', 'Payment Requests')
 
 @section('content')
-
-<div class="container pt-3">
-    <div class="btn-bx">
-        <a href="{{ route('create-payment') }}" class="btn btn-primary">Create Payment Link</a>
-    </div>
+<div class="container">
     <h1 class="mb-4">Payment Requests</h1>
 
     @if(session('success'))
@@ -24,7 +20,6 @@
                     <th>Service</th>
                     <th>Amount</th>
                     <th>Status</th>
-                    <th>Transaction</th>
                     <th>Link</th>
                 </tr>
             </thead>
@@ -44,19 +39,14 @@
                             @endif
                         </td>
                         <td>
-                            @if($payment->transaction_id)
-                                <small>{{ $payment->transaction_id }}</small>
-                            @else
-                                <span class="text-muted">—</span>
-                            @endif
-                        </td>
-                        <td>
-                            <a href="{{ $payment->checkout_url }}" target="_blank" class="btn btn-sm btn-primary">Pay</a>
+                            <a href="{{ $payment->checkout_url }}" target="_blank" class="btn btn-sm btn-primary">
+                                Pay
+                            </a>
                         </td>
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="8" class="text-center text-muted">No payment requests found.</td>
+                        <td colspan="7" class="text-center text-muted">No payment requests found.</td>
                     </tr>
                 @endforelse
             </tbody>

@@ -21,33 +21,19 @@ class StripePaymentController extends Controller
             'amount' => 'required|numeric|min:1',
         ]);
 
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $amount = $request->amount * 100;
 
-        $session = \Stripe\Checkout\Session::create([
-            'line_items' => [[
-                'price_data' => [
-                    'currency' => 'usd',
-                    'product_data' => ['name' => $request->service_desc],
-                    'unit_amount' => $amount,
-                ],
-                'quantity' => 1,
-            ]],
-            'mode' => 'payment',
-            'customer_email' => $request->client_email,
-            'success_url' => route('stripe.success') . '?session_id={CHECKOUT_SESSION_ID}',
-            'cancel_url' => route('stripe.cancel'),
-        ]);
-        // dd($session->id);
-        PaymentRequest::create([
+        $payment = PaymentRequest::create([
             'client_name' => $request->client_name,
             'client_email' => $request->client_email,
             'service_desc' => $request->service_desc,
             'amount_cents' => $amount,
-            'checkout_url' => $session->url,
-            'checkout_session_id' => $session->id,
             'status' => 'pending',
         ]);
+
+        // store internal payment page link
+        $payment->checkout_url = route('custom-pay', ['id' => $payment->id]);
+        $payment->save();
 
         return redirect()->route('payment-requests')->with('success', 'Payment link created!');
     }
@@ -58,36 +44,13 @@ class StripePaymentController extends Controller
         return view('list-requests', compact('payments'));
     }
 
-    public function success(Request $request)
-    {
-        $sessionId = $request->get('session_id');
-
-        if (!$sessionId) {
-            return redirect('/')->with('error', 'Missing session id.');
-        }
-
-        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
-        $session = \Stripe\Checkout\Session::retrieve($sessionId);
-
-        $payment = PaymentRequest::where('checkout_session_id', $sessionId)->first();
-
-        if ($session->payment_status == 'paid' && $payment) {
-            $payment->status = 'paid';
-            $payment->transaction_id = $session->payment_intent;
-            $payment->save();
-        }
-
-        return view('success');
-    }
-
-
     public function showCustomPaymentPage($id)
     {
         $payment = PaymentRequest::findOrFail($id);
 
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
-        // Create or reuse a PaymentIntent
+        // create or reuse PaymentIntent
         if (!$payment->payment_intent_id) {
             $intent = \Stripe\PaymentIntent::create([
                 'amount' => $payment->amount_cents,
@@ -109,6 +72,8 @@ class StripePaymentController extends Controller
         ]);
     }
 
-
-
+    public function success()
+    {
+        return view('success');
+    }
 }

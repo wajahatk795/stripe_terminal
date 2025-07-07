@@ -10,12 +10,7 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/', [StripePaymentController::class, 'listRequests']);
 });
 
-Route::get('/success', [StripePaymentController::class, 'success'])->name('stripe.success');
-Route::get('/cancel', function () {
-    return view('cancel');
-})->name('stripe.cancel');
-
 Route::get('/pay/{id}', [StripePaymentController::class, 'showCustomPaymentPage'])->name('custom-pay');
-Route::post('/pay/{id}', [StripePaymentController::class, 'processCustomPayment'])->name('custom-pay.process');
+Route::get('/success', [StripePaymentController::class, 'success'])->name('success');
 
 require __DIR__.'/auth.php';
