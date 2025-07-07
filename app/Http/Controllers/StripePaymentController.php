@@ -28,6 +28,7 @@ class StripePaymentController extends Controller
             'client_email' => $request->client_email,
             'service_desc' => $request->service_desc,
             'amount_cents' => $amount,
+            'checkout_url' => '', // initial dummy value
             'status' => 'pending',
         ]);
 
