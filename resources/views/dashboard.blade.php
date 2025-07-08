@@ -40,8 +40,10 @@
             </div>
         </div>
     </div>
-
-    <canvas id="statusChart"></canvas>
+    <div class="row align-items-center justify-content-center">
+        <canvas id="statusChart"></canvas>
+    </div>
+    
 </div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
@@ -64,6 +66,13 @@
         }
     });
 </script>
+<style>
+    canvas#statusChart {
+        height: 500px !important;
+        width: 500px !important;
+    }
+
+</style>
 @endsection
 
 
