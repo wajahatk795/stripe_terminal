@@ -4,7 +4,7 @@
 
 @section('content')
 <div class="container py-3">
-    <div class="btn_bx">
+    <div class="btn-bx">
         <a href="{{ route('create-payment') }}" class="btn btn-primary">New Payment Request</a>
     </div>
     <h1 class="mb-4">Payment Requests</h1>
