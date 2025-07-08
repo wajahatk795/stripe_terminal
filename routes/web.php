@@ -18,7 +18,5 @@ Route::get('/cancel', function () {
     return view('cancel');
 })->name('cancel');
 
-Route::get('/dashboard', [StripePaymentController::class, 'dashboard'])->middleware('auth')->name('dashboard');
-
 
 require __DIR__.'/auth.php';

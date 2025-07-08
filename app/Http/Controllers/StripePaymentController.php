@@ -34,12 +34,9 @@ class StripePaymentController extends Controller
 
         $payment->checkout_url = route('custom-pay', ['id' => $payment->id]);
         $payment->save();
-        // ✅ Send payment link email
-        Mail::to($payment->client_email)->send(new PaymentLinkCreated($payment));
 
-        return redirect()->route('payment-requests')->with('success', 'Payment link created & email sent!');
+        return redirect()->route('payment-requests')->with('success', 'Payment link created!');
     }
-    
 
     public function listRequests()
     {
@@ -88,14 +85,10 @@ class StripePaymentController extends Controller
             return response()->json(['error' => 'Payment not confirmed'], 400);
         }
 
-        if ($intent->status === 'succeeded') {
-            $payment->status = 'paid';
-            $payment->transaction_id = $request->transaction_id;
-            $payment->save();
-
-            // ✅ Send payment success email
-            Mail::to($payment->client_email)->send(new PaymentSuccessful($payment));
-        }
+        $payment = PaymentRequest::findOrFail($request->payment_id);
+        $payment->status = 'paid';
+        $payment->transaction_id = $request->transaction_id;
+        $payment->save();
 
         return response()->json(['success' => true]);
     }
@@ -104,15 +97,4 @@ class StripePaymentController extends Controller
     {
         return view('success');
     }
-
-    public function dashboard()
-    {
-        $total = PaymentRequest::count();
-        $paid = PaymentRequest::where('status', 'paid')->count();
-        $pending = PaymentRequest::where('status', 'pending')->count();
-        $cancelled = PaymentRequest::where('status', 'cancelled')->count();
-
-        return view('dashboard', compact('total', 'paid', 'pending', 'cancelled'));
-    }
-
 }
