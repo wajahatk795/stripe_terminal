@@ -98,6 +98,9 @@ class StripePaymentController extends Controller
         $payment->transaction_id = $request->transaction_id;
         $payment->save();
 
+        // ✅ Send admin email
+        Mail::to('info@vortexdigitallabs.com')->send(new AdminPaymentNotification($payment));
+
         return response()->json(['success' => true]);
     }
 
