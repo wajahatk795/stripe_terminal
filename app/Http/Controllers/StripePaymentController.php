@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PaymentRequest;
+use App\Mail\PaymentLinkCreated;
+use App\Mail\PaymentSuccessful;
 use Illuminate\Support\Facades\Mail;
 
 class StripePaymentController extends Controller
