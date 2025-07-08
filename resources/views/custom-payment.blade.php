@@ -1,26 +1,19 @@
 @extends('layouts.app')
 
-@section('title', 'Pay Now')
-
 @section('content')
 <div class="container py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow p-4">
                 <h3 class="mb-4 text-center">Pay for {{ $payment->service_desc }}</h3>
-
                 <ul class="list-group mb-4">
                     <li class="list-group-item d-flex justify-content-between">
                         <span>Client:</span><strong>{{ $payment->client_name }}</strong>
                     </li>
                     <li class="list-group-item d-flex justify-content-between">
-                        <span>Email:</span><strong>{{ $payment->client_email }}</strong>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
                         <span>Amount:</span><strong>${{ number_format($payment->amount_cents / 100, 2) }}</strong>
                     </li>
                 </ul>
-
                 <form id="payment-form">
                     <div id="card-element" class="mb-3"></div>
                     <div id="card-errors" class="text-danger mb-3"></div>
@@ -30,6 +23,8 @@
         </div>
     </div>
 </div>
+
+
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}");
@@ -46,7 +41,7 @@
         submitBtn.disabled = true;
         submitBtn.textContent = 'Processing...';
 
-        const {error, paymentIntent} = await stripe.confirmCardPayment(
+        const { error, paymentIntent } = await stripe.confirmCardPayment(
             "{{ $clientSecret }}",
             { payment_method: { card: card }}
         );
@@ -56,7 +51,6 @@
             submitBtn.disabled = false;
             submitBtn.textContent = 'Pay Now';
         } else {
-            // update status in Laravel
             fetch("{{ route('update-payment-status') }}", {
                 method: "POST",
                 headers: {
@@ -70,17 +64,18 @@
             })
             .then(res => res.json())
             .then(data => {
-                window.location.href = "{{ route('success') }}";
+                if (data.success) {
+                    window.location.href = "{{ route('success') }}";
+                } else {
+                    cardErrors.textContent = 'Payment verified but status not updated.';
+                }
             })
             .catch(err => {
-                console.error('Update error:', err);
-                window.location.href = "{{ route('success') }}";
+                console.error(err);
+                cardErrors.textContent = 'An error occurred.';
             });
         }
     });
 </script>
+
 @endsection
-
-
-
-

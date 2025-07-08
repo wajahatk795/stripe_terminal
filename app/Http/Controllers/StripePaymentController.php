@@ -84,6 +84,7 @@ class StripePaymentController extends Controller
             'transaction_id' => 'required|string',
         ]);
 
+        // 🚀 Retrieve payment intent from Stripe to be sure it succeeded
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
         $intent = \Stripe\PaymentIntent::retrieve($request->transaction_id);
 
@@ -91,14 +92,11 @@ class StripePaymentController extends Controller
             return response()->json(['error' => 'Payment not confirmed'], 400);
         }
 
-        if ($intent->status === 'succeeded') {
-            $payment->status = 'paid';
-            $payment->transaction_id = $request->transaction_id;
-            $payment->save();
-
-            // ✅ Send payment success email
-            Mail::to($payment->client_email)->send(new PaymentSuccessful($payment));
-        }
+        // 🚀 Update your local database
+        $payment = PaymentRequest::findOrFail($request->payment_id);
+        $payment->status = 'paid';
+        $payment->transaction_id = $request->transaction_id;
+        $payment->save();
 
         return response()->json(['success' => true]);
     }
