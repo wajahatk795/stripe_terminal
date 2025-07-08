@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\PaymentRequest;
-use App\Http\Controller\Mail;
+use App\Mail;
 
 class StripePaymentController extends Controller
 {
