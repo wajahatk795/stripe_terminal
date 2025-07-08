@@ -1,3 +1,4 @@
+
 <?php
 
 use Illuminate\Support\Facades\Route;
@@ -11,9 +12,11 @@ Route::middleware(['auth'])->group(function () {
 });
 
 Route::get('/pay/{id}', [StripePaymentController::class, 'showCustomPaymentPage'])->name('custom-pay');
+Route::post('/update-payment-status', [StripePaymentController::class, 'updateStatus'])->name('update-payment-status');
 Route::get('/success', [StripePaymentController::class, 'success'])->name('success');
 Route::get('/cancel', function () {
     return view('cancel');
 })->name('cancel');
+
 
 require __DIR__.'/auth.php';

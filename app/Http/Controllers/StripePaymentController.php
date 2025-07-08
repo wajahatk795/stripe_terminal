@@ -28,11 +28,10 @@ class StripePaymentController extends Controller
             'client_email' => $request->client_email,
             'service_desc' => $request->service_desc,
             'amount_cents' => $amount,
-            'checkout_url' => '', // initial dummy value
+            'checkout_url' => '', // initial
             'status' => 'pending',
         ]);
 
-        // store internal payment page link
         $payment->checkout_url = route('custom-pay', ['id' => $payment->id]);
         $payment->save();
 
@@ -51,7 +50,6 @@ class StripePaymentController extends Controller
 
         \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
 
-        // create or reuse PaymentIntent
         if (!$payment->payment_intent_id) {
             $intent = \Stripe\PaymentIntent::create([
                 'amount' => $payment->amount_cents,
@@ -71,6 +69,28 @@ class StripePaymentController extends Controller
             'payment' => $payment,
             'clientSecret' => $intent->client_secret
         ]);
+    }
+
+    public function updateStatus(Request $request)
+    {
+        $request->validate([
+            'payment_id' => 'required|integer|exists:payment_requests,id',
+            'transaction_id' => 'required|string',
+        ]);
+
+        \Stripe\Stripe::setApiKey(config('services.stripe.secret'));
+        $intent = \Stripe\PaymentIntent::retrieve($request->transaction_id);
+
+        if ($intent->status !== 'succeeded') {
+            return response()->json(['error' => 'Payment not confirmed'], 400);
+        }
+
+        $payment = PaymentRequest::findOrFail($request->payment_id);
+        $payment->status = 'paid';
+        $payment->transaction_id = $request->transaction_id;
+        $payment->save();
+
+        return response()->json(['success' => true]);
     }
 
     public function success()

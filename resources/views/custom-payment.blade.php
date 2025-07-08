@@ -30,6 +30,9 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('scripts')
 <script src="https://js.stripe.com/v3/"></script>
 <script>
     const stripe = Stripe("{{ config('services.stripe.key') }}");
@@ -56,12 +59,27 @@
             submitBtn.disabled = false;
             submitBtn.textContent = 'Pay Now';
         } else {
-            window.location.href = "{{ route('success') }}";
+            // update status in Laravel
+            fetch("{{ route('update-payment-status') }}", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRF-TOKEN": "{{ csrf_token() }}"
+                },
+                body: JSON.stringify({
+                    payment_id: {{ $payment->id }},
+                    transaction_id: paymentIntent.id
+                })
+            })
+            .then(res => res.json())
+            .then(data => {
+                window.location.href = "{{ route('success') }}";
+            })
+            .catch(err => {
+                console.error('Update error:', err);
+                window.location.href = "{{ route('success') }}";
+            });
         }
     });
 </script>
 @endsection
-
-
-
-
