@@ -40,6 +40,26 @@
             </div>
         </div>
     </div>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Total Payment</h5>
+                    <p class="card-text">${{ number_format($totalAmount, 2) }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row mb-4">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Payment Status Overview</h5>
+                    <p class="card-text">This chart shows the distribution of payment statuses across all requests.</p>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="row align-items-center justify-content-center">
         <canvas id="statusChart"></canvas>
     </div>

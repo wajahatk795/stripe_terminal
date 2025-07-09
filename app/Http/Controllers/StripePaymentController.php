@@ -116,6 +116,7 @@ class StripePaymentController extends Controller
         $paid = PaymentRequest::where('status', 'paid')->count();
         $pending = PaymentRequest::where('status', 'pending')->count();
         $cancelled = PaymentRequest::where('status', 'cancelled')->count();
+        $totalAmount = PaymentRequest::sum('amount_cents') / 100;
 
         return view('dashboard', compact('total', 'paid', 'pending', 'cancelled'));
     }
