@@ -5,7 +5,10 @@
 @section('content')
 <div class="container py-5">
     <h2 class="mb-4">Admin Dashboard</h2>
-
+    <div class="btn-bx">
+        <a href="{{ route('create-payment') }}" class="btn btn-primary">New Payment Request</a>
+        <a href="{{ route('payment-requests') }}" class="btn btn-secondary">View Payment Requests</a>
+    </div>
     <div class="row mb-4">
         <div class="col-md-3">
             <div class="card text-center shadow">
